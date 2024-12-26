@@ -111,3 +111,15 @@
         next
     ))
 )
+
+;; Public Functions
+(define-public (initialize (initial-price uint))
+    (begin
+        (asserts! (is-eq tx-sender CONTRACT-OWNER) ERR-NOT-AUTHORIZED)
+        (asserts! (not (var-get contract-initialized)) ERR-ALREADY-INITIALIZED)
+        (asserts! (validate-price initial-price) ERR-INVALID-PRICE)
+        (var-set oracle-price initial-price)
+        (var-set contract-initialized true)
+        (ok true)
+    )
+)
