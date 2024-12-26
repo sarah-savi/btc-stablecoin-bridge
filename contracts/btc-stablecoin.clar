@@ -262,3 +262,28 @@
         (ok {btc-returned: btc-return, stable-returned: stable-return})
     ))
 )
+
+;; Read-only functions
+(define-read-only (get-vault-details (owner principal))
+    (map-get? collateral-vaults owner)
+)
+
+(define-read-only (get-collateral-ratio (owner principal))
+    (let (
+        (vault (unwrap! (map-get? collateral-vaults owner) ERR-NOT-INITIALIZED))
+    )
+    (ok (calculate-collateral-ratio (get btc-locked vault) (get stablecoin-minted vault))))
+)
+
+(define-read-only (get-pool-details)
+    {
+        btc-balance: (var-get pool-btc-balance),
+        stable-balance: (var-get pool-stable-balance),
+        total-supply: (var-get total-supply),
+        oracle-price: (var-get oracle-price)
+    }
+)
+
+(define-read-only (get-lp-details (provider principal))
+    (map-get? liquidity-providers provider)
+)
