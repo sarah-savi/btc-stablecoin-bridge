@@ -26,3 +26,10 @@
 (define-constant PRECISION u1000000) ;; 6 decimal places
 (define-constant MAX-PRICE u100000000000) ;; Maximum allowed price (1M USD with 6 decimal precision)
 (define-constant MAX-MINT-AMOUNT u1000000000000) ;; Maximum mint amount (10K USD with 6 decimal precision)
+
+;; Data Variables
+(define-data-var contract-initialized bool false)
+(define-data-var oracle-price uint u0) ;; BTC/USD price with 6 decimal precision
+(define-data-var total-supply uint u0)
+(define-data-var pool-btc-balance uint u0)
+(define-data-var pool-stable-balance uint u0)
